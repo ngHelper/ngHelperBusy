@@ -13,8 +13,10 @@ bower install ng-helper-busy --save
 ```
 
 ### Use the $busy service to make the indicator visible
+
+The following sample demonstrates using the busy indicator with a simple timeout of 5 seconds. It's possible to use every promise with the busy service:
 ```javascript
-console.log("Starting busy sequences for 2 seconds");
+console.log("Starting busy sequences for 5 seconds");
 
 // Generate a promise which will be observed
 var timeoutPromise = $timeout(function() {
@@ -23,9 +25,20 @@ var timeoutPromise = $timeout(function() {
 
 // Start the busy layer for the time the promise is not resolved
 $busy.during(timeoutPromise).then(function() {
-  console.log("The busy sequences of 2 seconds is over");
+  console.log("The busy sequences of 5 seconds is over");
 })
 ```
+
+The second example shows using the busy service together with a network request through $http service:
+```javascript
+$busy.during($http.get('<<URL to a RESTful API or data>>'))
+```
+
+The during method acts as promise proxy so every promise can be used in the same way it was used without the during method:
+```javascript
+$busy.during($http.get('<<URL to a RESTful API or data>>')).then(function(data) {
+  alert("Request finished");
+})
 
 ## Contributing
 
