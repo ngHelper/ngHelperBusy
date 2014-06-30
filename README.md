@@ -48,6 +48,11 @@ $busy.during($http.get('<<URL to a RESTful API or data>>')).then(function(data) 
 })
 ```
 
+## Demo
+The ngHelperBusy module is used in the [applogger.io](https://applogger.io) service as shown here:
+![applogger.io](https://applogger.blob.core.windows.net/public/applogger-nghelper.png)
+
+
 ## Contributing
 
 1. Fork it!
