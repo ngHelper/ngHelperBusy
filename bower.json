@@ -1,1 +1,28 @@
-{"name":"ngHelperBusy","main":"ngHelperBusy.js","version":"0.0.1","homepage":"https://github.com/ngHelper/ngHelperBusy","authors":["dei79 <dirk.eisenberg@gmail.com>"],"description":"A full screen busy indicator which is controlled by the $busy service and supports","keywords":["angular","angularjs","busy","service","directive"],"license":"MIT","ignore":["**/.*","node_modules","bower_components","test","tests"]}
+{
+	"name": "ngHelperBusy",
+	"main": "ngHelperBusy.js",
+	"version": "0.0.1",
+	"homepage": "https://github.com/ngHelper/ngHelperBusy",
+	"authors": [
+		"dei79 <dirk.eisenberg@gmail.com>"
+	],
+	"description": "A full screen busy indicator which is controlled by the $busy service and supports",
+	"keywords": [
+		"angular",
+		"angularjs",
+		"busy",
+		"service",
+		"directive"
+	],
+	"license": "MIT",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	 "dependencies": {
+		"angular": "~1.2"    
+	}
+}
