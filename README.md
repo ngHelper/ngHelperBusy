@@ -39,6 +39,7 @@ The during method acts as promise proxy so every promise can be used in the same
 $busy.during($http.get('<<URL to a RESTful API or data>>')).then(function(data) {
   alert("Request finished");
 })
+```
 
 ## Contributing
 
