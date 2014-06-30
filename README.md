@@ -7,6 +7,13 @@ This angularjs extension offers a full screen activity indicator based on CSS3 a
 bower install ng-helper-busy --save
 ```
 
+### Include the angular module
+```javascript
+angular.module('appApp', [
+    'ngHelperBusy'
+]);
+```
+
 ### Add the indicator directive somewhere in your markup
 ```html
 <div ng-helper-busy></div>
