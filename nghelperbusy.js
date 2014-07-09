@@ -13,10 +13,31 @@ var ngHelperBusy = angular.module('ngHelperBusy', []);
  */
 ngHelperBusy.directive('ngHelperBusy',['$busy', function ($busy) {
     return {
-        template: '<div id="ngHelperBusyLayer"><div class="wrapper"><div class="loader"></div><div class="message">Please stay tuned...</div></div></div>',
+        template: '<div id="ngHelperBusyLayer"><div class="wrapper"><div class="loader"></div><div class="message">{{busyMessage}}</div></div></div>',
         restrict: 'CEA',
-        scope: true
+        scope: true,
+        controller: 'NgHelperBusyCtrl'
     };
+}]);
+
+/**
+ * @ngdoc controller
+ * @name ngHelperBusy.controller:ngHelperBusy
+ * @description
+ * # ngHelperBusy
+ */
+ngHelperBusy.controller('NgHelperBusyCtrl', ['$scope', '$rootScope', '$busy', function($scope, $rootScope, $busy) {
+    var defaultMessage = "Please stay tuned...";
+
+    $scope.busyMessage = defaultMessage;
+
+    $rootScope.$on('$busy.setMessage', function() {
+        $scope.busyMessage = $busy.getBusyMessage();
+    });
+
+    $rootScope.$on('$busy.resetMessage', function() {
+        $scope.busyMessage = defaultMessage;
+    })
 }]);
 
 /**
@@ -25,9 +46,24 @@ ngHelperBusy.directive('ngHelperBusy',['$busy', function ($busy) {
  * @description
  * # ngHelperBusy
  */
-ngHelperBusy.service('$busy', [ '$q', function($q) {
+ngHelperBusy.service('$busy', [ '$q', '$rootScope', function($q, $rootScope) {
     var self = this;
     var domElement = null;
+    var currentMessage = null;
+
+    self.getBusyMessage = function() {
+        return currentMessage;
+    };
+
+    self.setMessage = function(message) {
+        currentMessage = message;
+        $rootScope.$emit("$busy.setMessage");
+    };
+
+    self.resetMessage = function() {
+        currentMessage = null;
+        $rootScope.$emit("$busy.resetMessage");
+    };
 
     self.during = function(promise) {
 
@@ -49,6 +85,9 @@ ngHelperBusy.service('$busy', [ '$q', function($q) {
             busyElement.classList.remove("busy");
             bodyElement.classList.remove("ngHelperBusyLayerNoScroll");
 
+            // reset the message
+            self.resetMessage();
+
             // just call the then method of the original promise
             deferred.resolve(data);
 
@@ -56,5 +95,5 @@ ngHelperBusy.service('$busy', [ '$q', function($q) {
 
         // return our promise
         return deferred.promise;
-    }
+    };
 }]);
