@@ -52,6 +52,20 @@ $busy.during($http.get('<<URL to a RESTful API or data>>')).then(function(data) 
 The ngHelperBusy module is used in the [applogger.io](https://applogger.io) service as shown here:
 ![applogger.io](https://applogger.blob.core.windows.net/public/applogger-nghelper.png)
 
+### Adjust the status message
+
+It's possible to modify the status message of the activity indicator with the methods setMessage and resetMessage when ever
+it is necessary and helpful.
+
+## History
+
+### Version 0.0.2
+
+* allows to set the text message of the activity indicator
+
+### Version 0.0.1
+
+* initial release
 
 ## Contributing
 
