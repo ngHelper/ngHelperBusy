@@ -90,11 +90,15 @@ ngHelperBusy.service('$busy', [ '$q', '$rootScope', function($q, $rootScope) {
     self.beBusy = function() {
         // bring up the busy layer
         var busyElement = document.getElementById("ngHelperBusyLayer");
-        busyElement.classList.add("busy");
+        if (busyElement !== null && busyElement !== undefined) {
+            busyElement.classList.add("busy");
+        }
 
         // lock the body
         var bodyElement = document.getElementsByTagName("body")[0];
-        bodyElement.classList.add("ngHelperBusyLayerNoScroll");
+        if (bodyElement !== null && bodyElement !== undefined) {
+            bodyElement.classList.add("ngHelperBusyLayerNoScroll");
+        }
     };
 
     self.beFree = function() {
@@ -102,8 +106,14 @@ ngHelperBusy.service('$busy', [ '$q', '$rootScope', function($q, $rootScope) {
         // hide the busy layer when done
         var busyElement = document.getElementById("ngHelperBusyLayer");
         var bodyElement = document.getElementsByTagName("body")[0];
-        busyElement.classList.remove("busy");
-        bodyElement.classList.remove("ngHelperBusyLayerNoScroll");
+
+        if (busyElement !== null && busyElement !== undefined) {
+            busyElement.classList.remove("busy");
+        }
+
+        if (bodyElement !== null && bodyElement !== undefined) {
+            bodyElement.classList.remove("ngHelperBusyLayerNoScroll");
+        }
 
         // reset the message
         self.resetMessage();
