@@ -48,7 +48,6 @@ ngHelperBusy.controller('NgHelperBusyCtrl', ['$scope', '$rootScope', '$busy', fu
  */
 ngHelperBusy.service('$busy', [ '$q', '$rootScope', function($q, $rootScope) {
     var self = this;
-    var domElement = null;
     var currentMessage = null;
 
     self.getBusyMessage = function() {
@@ -70,23 +69,14 @@ ngHelperBusy.service('$busy', [ '$q', '$rootScope', function($q, $rootScope) {
         // generate a promise
         var deferred = $q.defer();
 
-        // bring up the busy layer
-        var busyElement = document.getElementById("ngHelperBusyLayer");
-        busyElement.classList.add("busy");
-
-        // lock the body
-        var bodyElement = document.getElementsByTagName("body")[0];
-        bodyElement.classList.add("ngHelperBusyLayerNoScroll");
+        // make us busy
+        self.beBusy();
 
         // wait until the given promise is done
         $q.when(promise).then(function(data) {
 
-            // hide the busy layer when done
-            busyElement.classList.remove("busy");
-            bodyElement.classList.remove("ngHelperBusyLayerNoScroll");
-
-            // reset the message
-            self.resetMessage();
+            // make us free
+            self.beFree();
 
             // just call the then method of the original promise
             deferred.resolve(data);
@@ -96,4 +86,26 @@ ngHelperBusy.service('$busy', [ '$q', '$rootScope', function($q, $rootScope) {
         // return our promise
         return deferred.promise;
     };
+
+    self.beBusy = function() {
+        // bring up the busy layer
+        var busyElement = document.getElementById("ngHelperBusyLayer");
+        busyElement.classList.add("busy");
+
+        // lock the body
+        var bodyElement = document.getElementsByTagName("body")[0];
+        bodyElement.classList.add("ngHelperBusyLayerNoScroll");
+    };
+
+    self.beFree = function() {
+
+        // hide the busy layer when done
+        var busyElement = document.getElementById("ngHelperBusyLayer");
+        var bodyElement = document.getElementsByTagName("body")[0];
+        busyElement.classList.remove("busy");
+        bodyElement.classList.remove("ngHelperBusyLayerNoScroll");
+
+        // reset the message
+        self.resetMessage();
+    }
 }]);

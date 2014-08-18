@@ -4,7 +4,7 @@
         "ngHelperBusy.js",
         "ngHelperBusy.css"
     ],
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"homepage": "https://github.com/ngHelper/ngHelperBusy",
 	"authors": [
 		"dei79 <dirk.eisenberg@gmail.com>"
