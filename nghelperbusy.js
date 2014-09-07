@@ -81,7 +81,14 @@ ngHelperBusy.service('$busy', [ '$q', '$rootScope', function($q, $rootScope) {
             // just call the then method of the original promise
             deferred.resolve(data);
 
-        }, deferred.reject,  deferred.notify);
+        }).catch(function(data) {
+
+            // make us free
+            self.beFree();
+
+            // just call the then method of the original promise
+            deferred.reject(data);
+        });
 
         // return our promise
         return deferred.promise;
