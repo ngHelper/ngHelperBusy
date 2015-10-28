@@ -38,6 +38,11 @@ ngHelperBusy.controller('NgHelperBusyCtrl', ['$scope', '$rootScope', '$busy', fu
     $rootScope.$on('$busy.resetMessage', function() {
         $scope.busyMessage = defaultMessage;
     })
+
+    if( $busy.busyOnLoading ){
+      $scope.busyMessage = $busy.getBusyMessage();
+      $busy.beBusy();
+    }
 }]);
 
 /**
@@ -49,6 +54,8 @@ ngHelperBusy.controller('NgHelperBusyCtrl', ['$scope', '$rootScope', '$busy', fu
 ngHelperBusy.service('$busy', [ '$q', '$rootScope', function($q, $rootScope) {
     var self = this;
     var currentMessage = null;
+
+    self.busyOnLoading = false;
 
     self.getBusyMessage = function() {
         return currentMessage;
